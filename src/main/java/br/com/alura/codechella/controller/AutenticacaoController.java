@@ -34,5 +34,4 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok(new DadosTokenJwt("Bearer", tokenJWT));
     }
-
 }
