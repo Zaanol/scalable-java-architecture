@@ -1,12 +1,11 @@
 FROM eclipse-temurin:17-jdk-alpine as builder
-WORKDIR application
+WORKDIR /application
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 RUN ./mvnw package -DskipTests
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
+RUN mv target/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 
