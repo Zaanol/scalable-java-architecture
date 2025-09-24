@@ -13,7 +13,7 @@ services:
 
   app:
     image: zanol/java-architecture:latest
-    env_file: ../../env/app.env
+    env_file: ./env/app.env
     restart: unless-stopped
     depends_on:
       mysql:
