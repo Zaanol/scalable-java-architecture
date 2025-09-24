@@ -2,7 +2,7 @@ version: '3'
 services:
   mysql:
     image: mysql:8.0.36
-    env_file: ./env/mysql.env
+    env_file: ../../env/mysql.env
     volumes:
       - ./mysql-data:/var/lib/mysql
     restart: unless-stopped
@@ -14,11 +14,21 @@ services:
 
   app:
     image: zanol/java-architecture:latest
-    env_file: ./env/app.env
+    env_file: ../../env/app.env
     restart: unless-stopped
     depends_on:
       mysql:
         condition: service_healthy
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    restart: unless-stopped
+    depends_on:
+      - app
 
 volumes:
   mysql-data:
